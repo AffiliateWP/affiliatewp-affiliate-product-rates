@@ -102,6 +102,9 @@ class AffiliateWP_Affiliate_Product_Rates_Admin {
 		.select2-container {
 		  width: 100%;
 		}
+		.apr-select-multiple {
+			width: 100%;
+		}
 		.affwp-product-rates-header {
 			font-size: 14px;
 		}
