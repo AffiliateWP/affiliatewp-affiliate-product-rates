@@ -157,12 +157,10 @@ class AffiliateWP_Affiliate_Product_Rates_Admin {
 
 						<?php foreach( $rates[$integration_key] as $key => $rates_array ) : 
 								
-							
-							$product = isset( $rates_array['products'] ) ? $rates_array['products'] : '';
+							error_log('A');
 							$rate    = isset( $rates_array['rate'] ) ? $rates_array['rate'] : '';
 							$type    = ! empty( $rates_array['type'] ) ? $rates_array['type'] : 'percentage';
-							
-							$products = affiliatewp_affiliate_product_rates()->get_products( $integration_key );
+							$selected = affiliatewp_affiliate_product_rates()->get_products_from_ids( $integration_key, $rates_array['products'] );
 
 						?>
 
@@ -170,22 +168,12 @@ class AffiliateWP_Affiliate_Product_Rates_Admin {
 							<tr class="row-<?php echo $key; ?>">
 								<td>
 								
-									<select id="product_rates[<?php echo $integration_key;?>][<?php echo $key; ?>]" name="product_rates[<?php echo $integration_key;?>][<?php echo $key; ?>][products][]" data-placeholder="<?php _e( 'Select Product', 'affiliatewp-affiliate-product-rates' ); ?>" multiple class="apr-select-multiple">
-										<?php if ( $products ) : 
-
-										foreach ( $products as $product ) { 
-										$selected = in_array( $product->ID, $rates_array['products'] ) ? $product->ID : '';
-										?>
-										<option value="<?php echo absint( $product->ID ); ?>" <?php echo selected( $selected, $product->ID, false ); ?>><?php echo esc_html( get_the_title( $product->ID ) ); ?></option>
-
-										<?php } ?>
-
-										<?php else : ?>
-
-											<option><?php _e( 'No Products found', 'affiliatewp-affiliate-product-rates' ); ?></option>
-
-										<?php endif; ?>
-
+									<select id="product_rates[<?php echo $integration_key;?>][<?php echo $key; ?>]" name="product_rates[<?php echo $integration_key;?>][<?php echo $key; ?>][products][]" data-placeholder="<?php _e( 'Select Product', 'affiliatewp-affiliate-product-rates' ); ?>" multiple class="apr-select-multiple" data-context="<?php echo $integration_key;?>">
+										<?php foreach( $selected as $product ) : ?>
+											<option value="<?php echo $product->ID; ?>" selected="selected">
+												<?php echo $product->post_title; ?>
+											</option>
+										<?php endforeach; ?>
 									</select>
 									
 								</td>
@@ -212,26 +200,8 @@ class AffiliateWP_Affiliate_Product_Rates_Admin {
 						<?php endif; ?>
 						<tr>
 							<td>
-							<select id="product_rates[<?php echo $integration_key;?>][<?php echo $count; ?>]" name="product_rates[<?php echo $integration_key;?>][<?php echo $count; ?>][products][]" data-placeholder="<?php _e( 'Select Product', '' ); ?>" multiple="multiple" class="apr-select-multiple">
-										<?php 
-
-										$products = affiliatewp_affiliate_product_rates()->get_products( $integration_key );
-
-										if ( $products ) : 
-
-										foreach ( $products as $product ) { 
-										?>
-										<option value="<?php echo absint( $product->ID ); ?>"><?php echo esc_html( get_the_title( $product->ID ) ); ?></option>
-
-										<?php } ?>
-
-										<?php else : ?>
-
-											<option><?php _e( 'No Products found', 'affiliatewp-affiliate-product-rates' ); ?></option>
-
-										<?php endif; ?>
-
-									</select>
+							<select id="product_rates[<?php echo $integration_key;?>][<?php echo $count; ?>]" name="product_rates[<?php echo $integration_key;?>][<?php echo $count; ?>][products][]" data-placeholder="<?php _e( 'Select Product', '' ); ?>" multiple="multiple" class="apr-select-multiple" data-context="<?php echo $integration_key;?>">
+							</select>
 							</td>
 							<td>
 								<input name="product_rates[<?php echo $integration_key; ?>][<?php echo $count; ?>][rate]" type="text" value="" class="test" />
