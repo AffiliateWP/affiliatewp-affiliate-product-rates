@@ -372,6 +372,7 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 		public function rest_get_products( $data ) {
 			$context = $data['context'] ? $data['context'] : 'woocommerce';
 			$term = $data['term'] ? $data['term'] : '';
+			$page = $data['page'] ? $data['page'] : 1;
 
 			switch ( $context ) {
 
@@ -388,7 +389,8 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 				'post_type' => $post_type,
 				'orderby'   => 'title',
 				'order'     => 'ASC',
-				'posts_per_page' => 300
+				'posts_per_page' => 100,
+				'paged' => $page
 			);
 			if( ! empty( $term ) ) {
 				$args['s'] = $term;
@@ -408,7 +410,7 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 			return array(
 				'results' => $results,
 				'pagination' => array(
-					'more' => false
+					'more' => ! empty( $products )
 				)
 			);
 		}
@@ -417,7 +419,7 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 		 * Get products from list of IDs
 		 * @param  String $context Context of the products to get: woocommerce, edd
 		 * @param  Array 	$ids List of ids of products to search
-		 * @return Array List of products on the format needed by select2
+		 * @return Array List of products that match the list of IDs
 		 */
 		public function get_products_from_ids( $context, $ids ) {
 

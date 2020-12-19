@@ -47,7 +47,8 @@ function affwp_affiliate_product_rates_admin_footer_js() {
 						data: function(params) {
 							var query = {
 								term: params.term,
-								context: $(this).attr('data-context')
+								context: $(this).attr('data-context'),
+								page: params.page || 1
 							}
 
 							return query;
