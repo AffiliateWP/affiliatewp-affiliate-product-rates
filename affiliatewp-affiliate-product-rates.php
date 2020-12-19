@@ -288,8 +288,6 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 			// get the product rates data
 			$product_rates = isset( $data['product_rates'] ) ? $data['product_rates'] : array();
 
-			error_log( print_r( $product_rates, true ) );
-
 			// sanitize data
 			if ( $product_rates ) {
 				// loop through each rate

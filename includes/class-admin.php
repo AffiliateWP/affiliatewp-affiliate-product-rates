@@ -157,7 +157,6 @@ class AffiliateWP_Affiliate_Product_Rates_Admin {
 
 						<?php foreach( $rates[$integration_key] as $key => $rates_array ) : 
 								
-							error_log('A');
 							$rate    = isset( $rates_array['rate'] ) ? $rates_array['rate'] : '';
 							$type    = ! empty( $rates_array['type'] ) ? $rates_array['type'] : 'percentage';
 							$selected = affiliatewp_affiliate_product_rates()->get_products_from_ids( $integration_key, $rates_array['products'] );
