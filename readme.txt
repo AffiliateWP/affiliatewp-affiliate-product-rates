@@ -1,7 +1,7 @@
 === AffiliateWP - Affiliate Product Rates ===
 Contributors: sumobi, mordauk
 Tags: AffiliateWP, affiliate, Pippin Williamson, Andrew Munro, mordauk, pippinsplugins, sumobi, ecommerce, e-commerce, e commerce, selling, referrals, easy digital downloads, digital downloads, woocommerce, woo, products, product, rates
-Requires at least: 3.9
+Requires at least: 4.6
 Tested up to: 5.5
 Requires PHP: 5.3
 Stable tag: 1.0.5.1
