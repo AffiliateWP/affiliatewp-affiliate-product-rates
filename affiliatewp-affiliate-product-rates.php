@@ -244,7 +244,7 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 		 */
 		public function register_api_routes() {
 
-			register_rest_route( 'affwp_pr/v1', '/products', array(
+			register_rest_route( 'affwp/v1/product-rates', '/products', array(
 				'methods' => 'GET',
 				'callback' => array( $this, 'rest_get_products' ),
 				'permission_callback' => function () {

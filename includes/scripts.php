@@ -30,7 +30,7 @@ function affwp_affiliate_product_rates_admin_footer_js() {
 		return;
 	}
 
-	$rest_url = rest_url( 'affwp_pr/v1/products' );
+	$rest_url = rest_url( 'affwp/v1/product-rates/products' );
 	$nonce = wp_create_nonce( 'wp_rest' );
 
 	?>
