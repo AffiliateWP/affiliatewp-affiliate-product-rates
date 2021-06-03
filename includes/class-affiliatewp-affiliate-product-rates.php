@@ -435,19 +435,7 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 	 * @return object The one true AffiliateWP_Affiliate_Product_Rates Instance
 	 */
 	function affiliatewp_affiliate_product_rates() {
-	    if ( ! class_exists( 'Affiliate_WP' ) ) {
-	        if ( ! class_exists( 'AffiliateWP_Activation' ) ) {
-	            require_once 'includes/class-activation.php';
-	        }
-
-	        $activation = new AffiliateWP_Activation( plugin_dir_path( __FILE__ ), basename( __FILE__ ) );
-	        $activation = $activation->run();
-
-	    } else {
-	        return AffiliateWP_Affiliate_Product_Rates::instance();
-	    }
-
+	  return AffiliateWP_Affiliate_Product_Rates::instance();
 	}
-	add_action( 'plugins_loaded', 'affiliatewp_affiliate_product_rates', 100 );
 
 }
