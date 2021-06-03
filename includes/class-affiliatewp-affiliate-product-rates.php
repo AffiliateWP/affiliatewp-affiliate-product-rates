@@ -43,6 +43,14 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 		private $version = '1.0.5.1';
 
 		/**
+		 * Main plugin file.
+		 *
+		 * @since 1.0.0
+		 * @var   string
+		 */
+		private $file = '';
+
+		/**
 		 * Main AffiliateWP_Affiliate_Product_Rates Instance
 		 *
 		 * Insures that only one instance of AffiliateWP_Affiliate_Product_Rates exists in memory at any one
@@ -53,9 +61,10 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 		 * @staticvar array $instance
 		 * @return The one true AffiliateWP_Affiliate_Product_Rates
 		 */
-		public static function instance() {
+		public static function instance( $file = null ) {
 			if ( ! isset( self::$instance ) && ! ( self::$instance instanceof AffiliateWP_Affiliate_Product_Rates ) ) {
 				self::$instance = new AffiliateWP_Affiliate_Product_Rates;
+				self::$instance->file = $file;
 				self::$instance->setup_constants();
 				self::$instance->load_textdomain();
 				self::$instance->hooks();
@@ -129,17 +138,17 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 
 			// Plugin Folder Path
 			if ( ! defined( 'AFFWP_APR_PLUGIN_DIR' ) ) {
-				define( 'AFFWP_APR_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+				define( 'AFFWP_APR_PLUGIN_DIR', plugin_dir_path( $this->file ) );
 			}
 
 			// Plugin Folder URL
 			if ( ! defined( 'AFFWP_APR_PLUGIN_URL' ) ) {
-				define( 'AFFWP_APR_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+				define( 'AFFWP_APR_PLUGIN_URL', plugin_dir_url( $this->file ) );
 			}
 
 			// Plugin Root File
 			if ( ! defined( 'AFFWP_APR_PLUGIN_FILE' ) ) {
-				define( 'AFFWP_APR_PLUGIN_FILE', __FILE__ );
+				define( 'AFFWP_APR_PLUGIN_FILE', $this->file );
 			}
 		}
 
@@ -386,7 +395,7 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 		 * @return      array $links The modified links array
 		 */
 		public function plugin_meta( $links, $file ) {
-		    if ( $file == plugin_basename( __FILE__ ) ) {
+		    if ( $file == plugin_basename( $this->file ) ) {
 		        $plugins_link = array(
 		            '<a title="' . __( 'Get more add-ons for AffiliateWP', 'affiliatewp-affiliate-product-rates' ) . '" href="http://affiliatewp.com/addons/" target="_blank">' . __( 'Get add-ons', 'affiliatewp-affiliate-product-rates' ) . '</a>'
 		        );
