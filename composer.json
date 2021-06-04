@@ -1,0 +1,21 @@
+{
+	"name": "affiliatewp/affiliatewp-affiliate-product-rates",
+	"description": "Set per-affiliate product referral rates",
+	"type": "wordpress-plugin",
+	"license": "GPLv2",
+	"require": {
+			"mnsami/composer-custom-directory-installer": "1.1.*",
+			"affiliatewp/affwp-addon-tools": "1.0.0"
+	},
+	"repositories": [
+			{
+					"type": "vcs",
+					"url": "https://github.com/AffiliateWP/affwp-addon-tools"
+			}
+	],
+	"extra": {
+			"installer-paths": {
+					"./includes/lib/affwp/": ["affiliatewp/affwp-addon-tools"]
+			}
+	}
+}
