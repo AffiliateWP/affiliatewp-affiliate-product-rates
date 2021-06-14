@@ -172,6 +172,9 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 
 			// add the product rates when adding a new affiliate
 			add_action( 'affwp_insert_affiliate', array( $this, 'add_affiliate_rates' ) );
+
+			// register custom rest endpoint
+			add_action( 'rest_api_init', array( $this, 'register_api_routes' ) );
 		}
 
 		/**
@@ -232,6 +235,22 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 				$user_id = affwp_get_affiliate_user_id( $affiliate_id );
 				$this->save_product_rates( $user_id, $_POST );
 			}
+
+		}
+
+		/**
+		 * Add custom rest endpoints
+		 * To be used by select2 to search products
+		 */
+		public function register_api_routes() {
+
+			register_rest_route( 'affwp/v1/product-rates', '/products', array(
+				'methods' => 'GET',
+				'callback' => array( $this, 'rest_get_products' ),
+				'permission_callback' => function () {
+						return current_user_can( 'edit_posts' );
+				}
+			) );
 
 		}
 
@@ -344,11 +363,15 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 		}
 
 		/**
-		 * Get products
-		 * @param  [type] $context [description]
-		 * @return [type]          [description]
+		 * Get products via Rest custom endpoint.
+		 * @param  WP_REST_Request $data Arguments passed in from the rest request.
+		 * @return Array List of products on the format needed by select2
 		 */
-		public function get_products( $context ) {
+		public function rest_get_products( $data ) {
+			$context = $data['context'] ? $data['context'] : 'woocommerce';
+			$term = $data['term'] ? $data['term'] : '';
+			$page = $data['page'] ? $data['page'] : 1;
+
 			switch ( $context ) {
 
 				case 'edd':
@@ -360,21 +383,70 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 					break;
 			}
 
-			$products = get_posts(
-				array(
-					'post_type' => $post_type,
-					'orderby'   => 'title',
-					'order'     => 'ASC',
-					'posts_per_page' => 300
-				)
+			$args = array(
+				'post_type' => $post_type,
+				'orderby'   => 'title',
+				'order'     => 'ASC',
+				'posts_per_page' => 100,
+				'paged' => $page
 			);
+			if( ! empty( $term ) ) {
+				$args['s'] = $term;
+			}
+			$products = get_posts( $args );
 
+			$results = array();
 			if ( ! empty( $products ) ) {
-				return $products;
+				$results = array_map( function( $product ) {
+					return array(
+						'id' => $product->ID,
+						'text' => $product->post_title
+					);
+				}, $products );
 			}
 
-			// return empty array
-			return array();
+			return array(
+				'results' => $results,
+				'pagination' => array(
+					'more' => ! empty( $products )
+				)
+			);
+		}
+
+		/**
+		 * Get products from list of IDs
+		 * @param  String $context Context of the products to get: woocommerce, edd
+		 * @param  Array 	$ids List of ids of products to search
+		 * @return Array List of products that match the list of IDs
+		 */
+		public function get_products_from_ids( $context, $ids ) {
+
+			if( empty( $ids ) ) {
+				return array();
+			}
+
+			$post_type = 'product';
+
+			switch ( $context ) {
+
+				case 'edd':
+					$post_type = 'download';
+					break;
+
+				case 'woocommerce':
+					$post_type = 'product';
+					break;
+			}
+
+			$products = get_posts( array(
+				'post_type' => $post_type,
+				'post__in' => $ids,
+				'orderby'   => 'title',
+				'order'     => 'ASC',
+				'posts_per_page' => 300
+			) );
+
+			return $products;
 		}
 
 		/**

@@ -30,13 +30,30 @@ function affwp_affiliate_product_rates_admin_footer_js() {
 		return;
 	}
 
+	$rest_url = rest_url( 'affwp/v1/product-rates/products' );
+	$nonce = wp_create_nonce( 'wp_rest' );
+
 	?>
 	<script>
 		jQuery(document).ready(function ($) {
 
 			$('select.apr-select-multiple').select2({
 			    placeholder: "Select a Product",
-			    allowClear: true,
+					allowClear: false,
+					ajax: {
+						url: '<?php echo $rest_url; ?>',
+						dataType: 'json',
+						headers: { 'X-WP-Nonce': '<?php echo $nonce; ?>'},
+						data: function(params) {
+							var query = {
+								term: params.term,
+								context: $(this).attr('data-context'),
+								page: params.page || 1
+							}
+
+							return query;
+						}
+					}
 			});
 			
 		});
