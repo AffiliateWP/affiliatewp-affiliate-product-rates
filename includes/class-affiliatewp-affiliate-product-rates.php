@@ -421,5 +421,4 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 	function affiliatewp_affiliate_product_rates() {
 		return AffiliateWP_Affiliate_Product_Rates::instance();
 	}
-
 }

@@ -72,7 +72,6 @@ Go to Affiliates &rarr; Affiliates, and click "edit" next to the affiliate you'd
 * Fix: Email tags were empty in affiliate administration email
 * Fix: Affiliates were registered as "pending" even though affiliate approval was disabled
 
-
 = 1.0.1 =
 * Fix: Display issues on the edit affiliate page
 
