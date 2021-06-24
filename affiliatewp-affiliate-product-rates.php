@@ -7,7 +7,6 @@
  * Author URI: https://sandhillsdev.com
  * Version: 1.0.5.1
  * Text Domain: affiliatewp-affiliate-product-rates
- * Domain Path: languages
  *
  * AffiliateWP is distributed under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 2 of the License, or
