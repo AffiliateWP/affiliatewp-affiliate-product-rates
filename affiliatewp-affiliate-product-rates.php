@@ -5,7 +5,7 @@
  * Description: Set per-affiliate product referral rates
  * Author: Sandhills Development, LLC
  * Author URI: https://sandhillsdev.com
- * Version: 1.0.5.1
+ * Version: 1.1
  * Text Domain: affiliatewp-affiliate-product-rates
  *
  * AffiliateWP is distributed under the terms of the GNU General Public License as published by
@@ -23,7 +23,7 @@
  * @package Affiliate Product Rates
  * @category Core
  * @author Andrew Munro
- * @version 1.0.5.1
+ * @version 1.1
  */
 
 // Exit if accessed directly.

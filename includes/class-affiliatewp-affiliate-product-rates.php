@@ -41,7 +41,7 @@ if ( ! class_exists( 'AffiliateWP_Affiliate_Product_Rates' ) ) {
 		 * @since 1.0
 		 * @var string
 		 */
-		private $version = '1.0.5.1';
+		private $version = '1.1';
 
 		/**
 		 * Main plugin file.
