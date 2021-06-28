@@ -1,9 +1,9 @@
 === AffiliateWP - Affiliate Product Rates ===
 Contributors: sumobi, mordauk
 Tags: AffiliateWP, affiliate, Pippin Williamson, Andrew Munro, mordauk, pippinsplugins, sumobi, ecommerce, e-commerce, e commerce, selling, referrals, easy digital downloads, digital downloads, woocommerce, woo, products, product, rates
-Requires at least: 3.9
+Requires at least: 5.0
 Tested up to: 5.7
-Requires PHP: 5.3
+Requires PHP: 5.6
 Stable tag: 1.0.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -71,7 +71,6 @@ Go to Affiliates &rarr; Affiliates, and click "edit" next to the affiliate you'd
 = 1.0.2 =
 * Fix: Email tags were empty in affiliate administration email
 * Fix: Affiliates were registered as "pending" even though affiliate approval was disabled
-
 
 = 1.0.1 =
 * Fix: Display issues on the edit affiliate page
