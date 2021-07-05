@@ -13,8 +13,13 @@ function affwp_affiliate_product_rates_admin_enqueue_scripts() {
 	if ( affwp_apr_is_affiliate_page() ) {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		wp_enqueue_script( 'affwp-select2' );
-		wp_enqueue_style( 'affwp-select2' );
+		if ( defined( 'AFFILIATEWP_VERSION' ) && version_compare( AFFILIATEWP_VERSION, '2.7.1', '>=' ) ) {
+			wp_enqueue_script( 'affwp-select2' );
+			wp_enqueue_style( 'affwp-select2' );
+		} else {
+			wp_enqueue_script( 'affwp-apr-js', AFFWP_APR_PLUGIN_URL . 'assets/js/select2' . $suffix . '.js', array( 'jquery' ), AFFWP_APR_VERSION );
+			wp_enqueue_style( 'affwp-apr-css', AFFWP_APR_PLUGIN_URL . 'assets/css/select2' . $suffix . '.css', '', AFFWP_APR_VERSION, 'screen' );
+		}
 	}
 }
 add_action( 'admin_enqueue_scripts', 'affwp_affiliate_product_rates_admin_enqueue_scripts' );
