@@ -13,7 +13,7 @@ function affwp_affiliate_product_rates_admin_enqueue_scripts() {
 	if ( affwp_apr_is_affiliate_page() ) {
 		$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
-		if ( defined( 'AFFILIATEWP_VERSION' ) && version_compare( AFFILIATEWP_VERSION, '2.7.1', '>=' ) ) {
+		if ( wp_script_is( 'affwp-select2', 'registered' ) ) {
 			wp_enqueue_script( 'affwp-select2' );
 			wp_enqueue_style( 'affwp-select2' );
 		} else {
